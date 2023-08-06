@@ -4,11 +4,8 @@
 
 #include <FastLED.h>
 #include <Arduino.h>
-//#include <M5Unified.hpp>
 
 #include <Wire.h>
-//#include <WiFi.h>
-//#include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
 #include "SparkFun_SCD30_Arduino_Library.h"
 #include "wifi_settings.h"
@@ -44,16 +41,8 @@ void lightUpLEDbyCo2Value(float co2){
 }
 
 void setup() {
-  //M5.begin();
   Serial.begin(115200);
-  //M5.dis.drawpix(0, dispColor(0, 0, 0));
-  /*
-  auto cfg = M5.config();
-  M5.begin(cfg);
 
-  Wire.begin(M5.Ex_I2C.getSDA(), M5.Ex_I2C.getSCL());
-  Serial.printf("sda:%d scl: %d\n", M5.Ex_I2C.getSDA(), M5.Ex_I2C.getSCL());
-  */
   FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(20);
   leds[0] = 0;
@@ -146,16 +135,8 @@ void setup() {
 }
 
 void loop() {
-  //M5.update();
   Blynk.run();
   timer.run();
-
-/*
-  if (M5.BtnA.wasClicked()) {
-    ESP_LOGD("Pressed!");
-    Blynk.virtualWrite(V1, millis() / 1000);
-  }
-  */
   delay(100);
 }
 
