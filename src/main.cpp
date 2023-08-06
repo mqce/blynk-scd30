@@ -39,6 +39,7 @@ void setup() {
   // Serial.begin(115200);
   FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(20);
+  FastLED.setCorrection(0xFFB0F0);// weaken green because green LEDs are brighter.
   leds[0] = 0;
 
   // M5Atom SDA/SCL pins
