@@ -41,7 +41,7 @@ void lightUpLEDbyCo2Value(float co2){
 }
 
 void setup() {
-  Serial.begin(115200);
+  // Serial.begin(115200);
 
   FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(20);
@@ -53,83 +53,6 @@ void setup() {
   bool autoCalibrate = true;
   airSensor.begin(Wire1, autoCalibrate);
 
-  /*
-  if (airSensor.begin(Wire1) == false)
-  {
-      Serial.println("Air sensor not detected. Please check wiring. Freezing...");
-      while (1);
-  }
-
-  uint16_t settingVal; // The settings will be returned in settingVal
-  
-  if (airSensor.getForcedRecalibration(&settingVal) == true) // Get the setting
-  {
-    Serial.print("Forced recalibration factor (ppm) is ");
-    Serial.println(settingVal);
-  }
-  else
-  {
-    Serial.print("getForcedRecalibration failed! Freezing...");
-    while (1)
-      ; // Do nothing more
-  }
-
-  if (airSensor.getMeasurementInterval(&settingVal) == true) // Get the setting
-  {
-    Serial.print("Measurement interval (s) is ");
-    Serial.println(settingVal);
-  }
-  else
-  {
-    Serial.print("getMeasurementInterval failed! Freezing...");
-    while (1)
-      ; // Do nothing more
-  }
-
-  if (airSensor.getTemperatureOffset(&settingVal) == true) // Get the setting
-  {
-    Serial.print("Temperature offset (C) is ");
-    Serial.println(((float)settingVal) / 100.0, 2);
-  }
-  else
-  {
-    Serial.print("getTemperatureOffset failed! Freezing...");
-    while (1)
-      ; // Do nothing more
-  }
-
-  if (airSensor.getAltitudeCompensation(&settingVal) == true) // Get the setting
-  {
-    Serial.print("Altitude offset (m) is ");
-    Serial.println(settingVal);
-  }
-  else
-  {
-    Serial.print("getAltitudeCompensation failed! Freezing...");
-    while (1)
-      ; // Do nothing more
-  }
-
-  if (airSensor.getFirmwareVersion(&settingVal) == true) // Get the setting
-  {
-    Serial.print("Firmware version is 0x");
-    Serial.println(settingVal, HEX);
-  }
-  else
-  {
-    Serial.print("getFirmwareVersion! Freezing...");
-    while (1)
-      ; // Do nothing more
-  }
-
-  Serial.print("Auto calibration set to ");
-  if (airSensor.getAutoSelfCalibration() == true)
-      Serial.println("true");
-  else
-      Serial.println("false");
-  */
-
-      
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
   timer.setInterval(5000L, myTimerEvent);//The SCD30 has data ready every two seconds
 }
@@ -145,11 +68,11 @@ void myTimerEvent(){
     float temperature = airSensor.getTemperature();
     float co2 = airSensor.getCO2();
     float humidity = airSensor.getHumidity();
-
+    /*
     Serial.println(temperature);
     Serial.println(co2);
     Serial.println(humidity);
-
+    */
     lightUpLEDbyCo2Value(co2);
 
     Blynk.virtualWrite(V0, temperature);
@@ -165,7 +88,7 @@ void myTimerEvent(){
       delay(5000);
     }
   }else{
-    Serial.println("error");
+    // Serial.println("error");
     delay(100);
   }
 }
