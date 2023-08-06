@@ -1,14 +1,9 @@
-#define BLYNK_TEMPLATE_ID "TMPL6l9c7PHHK"
-#define BLYNK_TEMPLATE_NAME "SmartHomeESP32"
-#define BLYNK_AUTH_TOKEN "IBpHJigiCxQatNoY5Vc5inthDBd3EBvL"
-
-#include <FastLED.h>
+#include "auth_settings.h"
 #include <Arduino.h>
-
+#include <FastLED.h>
 #include <Wire.h>
 #include <BlynkSimpleEsp32.h>
 #include "SparkFun_SCD30_Arduino_Library.h"
-#include "wifi_settings.h"
 
 BlynkTimer timer;
 SCD30 airSensor;
@@ -42,18 +37,18 @@ void lightUpLEDbyCo2Value(float co2){
 
 void setup() {
   // Serial.begin(115200);
-
   FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(20);
   leds[0] = 0;
 
+  // M5Atom SDA/SCL pins
   Wire1.begin(25,21);
   delay(100);
 
-  bool autoCalibrate = true;
+  const bool autoCalibrate = true;
   airSensor.begin(Wire1, autoCalibrate);
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASS);
   timer.setInterval(5000L, myTimerEvent);//The SCD30 has data ready every two seconds
 }
 
